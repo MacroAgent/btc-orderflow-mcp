@@ -1,0 +1,19 @@
+{
+  "name": "btc-orderflow-mcp",
+  "version": "0.1.0",
+  "description": "Real-time BTC order flow analysis — hourly AI reports via MacroAgent",
+  "mcpServers": {
+    "btc": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/MacroAgent/btc-orderflow-mcp.git",
+        "btc-mcp"
+      ],
+      "env": {
+        "BTC_MCP_API_URL": "${BTC_MCP_API_URL}",
+        "BTC_MCP_API_KEY": "${BTC_MCP_API_KEY}"
+      }
+    }
+  }
+}
