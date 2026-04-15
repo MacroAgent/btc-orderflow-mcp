@@ -53,12 +53,12 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 
 ### Step 1 — Get an API Key
 
-**[→ Get your API key at macroagent.ai](https://macroagent.ai)**
+**[→ Get your API key ($30)](https://macroagent.lemonsqueezy.com/checkout/buy/2ca3515a-37c2-4044-98a2-3033c85574bd)**
 
 | Tier | Reports | History | Price |
 |------|---------|---------|-------|
 | Free Trial | Latest report only | — | Free |
-| Pro | Unlimited | 7 days | $19/month |
+| Pro | Unlimited | 7 days | $30 |
 
 ---
 
