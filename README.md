@@ -1,41 +1,64 @@
-# btc-mcp
+# btc-orderflow-mcp
 
-MCP Server that exposes BTC market analysis reports from MacroAgent as Claude tools.
+Real-time BTC order flow analysis as a Claude plugin — powered by MacroAgent.
 
-## Installation
+## Install as Claude Plugin
+
+### Step 0 — Install uv (if not already installed)
 
 ```bash
-pip install btc-mcp
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-## Claude Desktop Configuration
+`uv` is required to run the MCP server. Restart your terminal after installing.
 
-Add to `~/Library/Application Support/Claude/claude_desktop_config.json`
-(macOS) or `%APPDATA%\Claude\claude_desktop_config.json` (Windows):
+### Step 1 — Add the MacroAgent marketplace
 
-```json
-{
-  "mcpServers": {
-    "btc": {
-      "command": "btc-mcp",
-      "env": {
-        "BTC_MCP_API_URL": "https://your-domain.com",
-        "BTC_MCP_API_KEY": "your-api-key"
-      }
-    }
-  }
-}
+```bash
+claude plugin marketplace add MacroAgent/macroagent-marketplace
 ```
 
-Restart Claude Desktop after saving.
+### Step 2 — Install the plugin
+
+```bash
+claude plugin install btc-orderflow-mcp@macroagent-marketplace
+```
+
+### Step 3 — Set your API key (persistent)
+
+```bash
+echo 'export BTC_MCP_API_URL="https://macroagent.ai"' >> ~/.zshrc
+echo 'export BTC_MCP_API_KEY="your-api-key-here"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+> Bash users: replace `~/.zshrc` with `~/.bashrc`.
+
+### Step 4 — Restart Claude and use it
+
+Type `/btc-orderflow-mcp:btc-report` in any Claude session, or ask naturally:
+
+> "What's the current BTC market condition?"
+
+Claude will automatically invoke the skill.
+
+---
+
+## Get an API Key
+
+Contact [@trader_jessepan](https://t.me/trader_jessepan) on Telegram.
+
+---
 
 ## Available Tools
 
-### `get_btc_report`
+Once installed, Claude has access to two MCP tools:
 
-Returns the latest BTC market analysis report. No parameters required.
+### `mcp__btc__get_btc_report`
 
-Example response (as JSON string):
+Returns the latest hourly BTC market analysis. No parameters.
+
+Example response:
 ```json
 {
   "id": "3f2a1b...",
@@ -43,16 +66,13 @@ Example response (as JSON string):
   "ts": 1712000000,
   "price_at_diag": 67500.0,
   "direction": "bull",
-  "ai_analysis": {
-    "direction_score": 7,
-    "summary": "..."
-  },
+  "ai_analysis": { "direction_score": 7, "summary": "..." },
   "model_used": "claude-opus-4-6",
   "created_at": 1712000000
 }
 ```
 
-### `get_report_history`
+### `mcp__btc__get_report_history`
 
 Returns BTC analysis reports from the past N hours.
 
@@ -60,19 +80,21 @@ Returns BTC analysis reports from the past N hours.
 |-----------|------|---------|-------|
 | `hours` | integer | 24 | 1–168 |
 
-Returns a JSON array of report objects (same schema as above).
+---
 
 ## Environment Variables
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `BTC_MCP_API_URL` | Yes | MacroAgent backend base URL (no trailing slash) |
-| `BTC_MCP_API_KEY` | Yes | Bearer token set in `REPORT_API_KEYS` on the server |
+| `BTC_MCP_API_URL` | Yes | `https://macroagent.ai` |
+| `BTC_MCP_API_KEY` | Yes | API key received after purchase |
+
+---
 
 ## Development
 
 ```bash
-git clone <this-repo> btc-mcp && cd btc-mcp
+git clone https://github.com/MacroAgent/btc-orderflow-mcp.git && cd btc-orderflow-mcp
 pip install -e .
-BTC_MCP_API_URL=http://localhost:5001 BTC_MCP_API_KEY=your-key btc-mcp
+BTC_MCP_API_URL=http://localhost:5001 BTC_MCP_API_KEY=dev-key btc-mcp
 ```
