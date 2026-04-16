@@ -53,7 +53,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 
 ### Step 1 — Get an API Key
 
-**[→ Get your API key ($30)](https://macroagent.lemonsqueezy.com/checkout/buy/2ca3515a-37c2-4044-98a2-3033c85574bd)**
+**[→ Get your API key ($30)](https://macroagentbtc.lemonsqueezy.com/checkout/buy/e2809e37-9007-48d9-8b2f-5ab312c3be60)**
 
 | Tier | Reports | History | Price |
 |------|---------|---------|-------|
