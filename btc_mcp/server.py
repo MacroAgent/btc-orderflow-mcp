@@ -27,23 +27,32 @@ def _strip(obj: dict) -> dict:
 
 
 @mcp.tool()
-def get_btc_report() -> str:
+def get_btc_report(language: str = "en") -> str:
     """Retrieve the latest BTC market analysis report from MacroAgent.
+
+    Args:
+        language: Response language — "en" (English, default) or "zh" (Chinese).
 
     Returns a JSON string with: coin, ts, price_at_diag, direction, ai_analysis.
     """
     headers = {"Authorization": f"Bearer {_API_KEY}"}
-    r = httpx.get(f"{_API_URL}/report/latest", headers=headers, timeout=30)
+    r = httpx.get(
+        f"{_API_URL}/report/latest",
+        headers=headers,
+        params={"language": language},
+        timeout=30,
+    )
     r.raise_for_status()
     return json.dumps(_strip(r.json()))
 
 
 @mcp.tool()
-def get_report_history(hours: int = 24) -> str:
+def get_report_history(hours: int = 24, language: str = "en") -> str:
     """Retrieve BTC market analysis reports from the past N hours.
 
     Args:
         hours: Look-back window in hours (1-168, default 24).
+        language: Response language — "en" (English, default) or "zh" (Chinese).
 
     Returns a JSON array of report objects ordered newest-first.
     Each object contains: coin, ts, price_at_diag, direction, ai_analysis.
@@ -53,7 +62,7 @@ def get_report_history(hours: int = 24) -> str:
     r = httpx.get(
         f"{_API_URL}/report/history",
         headers=headers,
-        params={"hours": hours},
+        params={"hours": hours, "language": language},
         timeout=30,
     )
     r.raise_for_status()
