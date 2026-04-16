@@ -7,7 +7,7 @@
       "command": "uvx",
       "args": [
         "--from",
-        "git+https://github.com/MacroAgent/btc-orderflow-mcp.git",
+        "git+https://github.com/MacroAgent/btc-orderflow-mcp.git@v0.1.4",
         "btc-mcp"
       ],
       "env": {
